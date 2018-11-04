@@ -1,6 +1,16 @@
+<?php
+   include('koneksi.php');
+    $q = "SELECT artikel.kd_artikel, artikel.kategori, artikel.judul,artikel.isi,artikel.tanggal,user.nama
+        FROM artikel
+        INNER JOIN user
+        ON (user.kd_user = artikel.kd_user)
+        ORDER BY artikel.tanggal DESC
+        ";
+    $artikel = mysqli_query($con,$q);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="">
@@ -32,7 +42,7 @@
     <header class="header_area">
         <div class="container-fluid h-100">
             <div class="row h-100">
-                <!-- Menu Area Start -->
+                <!-- Menu Area Start -->    
                 <div class="col-12 h-100">
                     <div class="menu_area h-100">
                         <nav class="navbar h-100 navbar-expand-lg align-items-center">
@@ -52,7 +62,7 @@
                                             <a class="dropdown-item" href="about.html">About Us</a>
                                             <a class="dropdown-item" href="services.html">Services</a>
                                             <a class="dropdown-item" href="portfolio.html">Portfolio</a>
-                                            <a class="dropdown-item" href="blog.html">Blog</a>
+                                            <a class="dropdown-item" href="blog.php">Blog</a>
                                             <a class="dropdown-item" href="contact.html">Contact</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="elements.html">Elements</a>
@@ -61,7 +71,7 @@
                                     <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
                                     <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
                                     <li class="nav-item"><a class="nav-link" href="portfolio.html">Portfolio</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="blog.php">Blog</a></li>
                                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                                 </ul>
                                 <!-- Search Form Area Start -->
@@ -120,22 +130,33 @@
                             <div class="col-12">
                                 <div class="single-blog wow fadeInUp" data-wow-delay="0.2s">
                                     <!-- Post Category -->
-                                    <a href="#" >Jenis / Kategori Artikel </a>
-                                    <hr>
-                                    <!-- Post Title -->
-                                    <h1>Judul Artikel</h1>
-                                    <div class="blog-post-thumb">
-                                        <img src="img/blog-img/1.jpg" alt="">
-                                    </div>
-                                    <!-- Post Meta -->
-                                    <div class="post-meta">
-                                        <h6>By <a href="#">admin penulis artikel,</a><a href="#">tanggal bulan tahun</a></h6>
-                                    </div>
-                                    <!-- Post Title -->
-                                    <!-- Post Excerpt -->
-                                    <p>isi artikel..</p>
-                                    <!-- Read More btn -->
-                                    <a href="#">Read More</a>
+                                    <?php $c = 1; ?>
+                                    <?php while($row = mysqli_fetch_array($artikel,MYSQLI_ASSOC)): ?>                            
+                                        <br>
+                                        <a href="#" ><?php echo $row['kategori'];?></a>
+                                        <hr>
+                                        <!-- Post Title -->
+                                        <h1><?php echo $row['judul'];?></h1>
+                                        <div class="blog-post-thumb">
+                                            <img src="img/blog-img/1.jpg" alt="">
+                                        </div>
+                                        <!-- Post Meta -->
+                                        <div class="post-meta">
+                                            <h6>By <a href="#"><?php echo $row['nama'];?>,</a><a href="#"><?php echo $row['tanggal'];?></a></h6>
+                                        </div>
+                                        <!-- Post Title -->
+                                        <!-- Post Excerpt -->
+                                        <p><?php echo $row['isi'];?></p>
+                                        <!-- Read More btn -->
+                                        <a href="artikel.php?kd_artikel=<?php echo $row['kd_artikel']?>">Read More</a>
+                                        <br>
+                                    <?php $c++; ?>
+                                    <?php endwhile; ?>
+                                    <?php if(mysqli_num_rows($artikel) < 1): ?>
+                                        <tr>
+                                            <td colspan="5" class="bg-danger text-danger text-center">*** TIDAK ADA ARTIKEL ***</td>
+                                        </tr>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             
@@ -151,107 +172,9 @@
                             </ul>
                         </nav>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12"><br> <h5>Related Articles</h5><hr>
-                            <div class="row">
-                                <div class="col-md-4 single-latest-blog-post d-flex">
-                                    <div class="latest-blog-post-thumb">
-                                        <img src="img/blog-img/lb-1.jpg" alt="">
-                                    </div>
-                                    <div class="latest-blog-post-content">
-                                        <h6><a href="#">A simple blog post</a></h6>
-                                        <div class="post-meta">
-                                            <h6>By <a href="#">Jane Smith</a>/<a href="#">Aug 25, 2016</a></h6>
-                                        </div>
-                                    </div>  
-                                </div>
-                                <div class="col-md-4 single-latest-blog-post d-flex">
-                                    <div class="latest-blog-post-thumb">
-                                        <img src="img/blog-img/lb-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-blog-post-content">
-                                        <h6><a href="#">A new way to see things in design</a></h6>
-                                        <div class="post-meta">
-                                            <h6>By <a href="#">Jane Smith</a>/<a href="#">Aug 25, 2016</a></h6>
-                                        </div>
-                                    </div> 
-                                </div>
-                                <div class="col-md-4 single-latest-blog-post d-flex">
-                                    <div class="latest-blog-post-thumb">
-                                        <img src="img/blog-img/lb-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-blog-post-content">
-                                        <h6><a href="#">This is just a blog post</a></h6>
-                                        <div class="post-meta">
-                                            <h6>By <a href="#">Jane Smith</a>/<a href="#">Aug 25, 2016</a></h6>
-                                        </div>
-                                    </div>   
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-12 col-md-4">
                     <div class="mosh-blog-sidebar">
-
-                        <div class="blog-post-search-widget mb-100">
-                            <form action="#">
-                                <input type="search" name="search" id="Search">
-                                <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                            </form>
-                        </div>
-                        <div class="latest-blog-posts mb-100">
-                            <h5>Latest Posts</h5>
-                            <!-- Single Latest Blog Post -->
-                            <div class="single-latest-blog-post d-flex">
-                                <div class="latest-blog-post-thumb">
-                                    <img src="img/blog-img/lb-1.jpg" alt="">
-                                </div>
-                                <div class="latest-blog-post-content">
-                                    <h6><a href="#">A simple blog post</a></h6>
-                                    <div class="post-meta">
-                                        <h6>By <a href="#">Jane Smith</a>/<a href="#">Aug 25, 2016</a></h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Single Latest Blog Post -->
-                            <div class="single-latest-blog-post d-flex">
-                                <div class="latest-blog-post-thumb">
-                                    <img src="img/blog-img/lb-2.jpg" alt="">
-                                </div>
-                                <div class="latest-blog-post-content">
-                                    <h6><a href="#">A new way to see things in design</a></h6>
-                                    <div class="post-meta">
-                                        <h6>By <a href="#">Jane Smith</a>/<a href="#">Aug 25, 2016</a></h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Single Latest Blog Post -->
-                            <div class="single-latest-blog-post d-flex">
-                                <div class="latest-blog-post-thumb">
-                                    <img src="img/blog-img/lb-3.jpg" alt="">
-                                </div>
-                                <div class="latest-blog-post-content">
-                                    <h6><a href="#">This is just a blog post</a></h6>
-                                    <div class="post-meta">
-                                        <h6>By <a href="#">Jane Smith</a>/<a href="#">Aug 25, 2016</a></h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Single Latest Blog Post -->
-                            <div class="single-latest-blog-post d-flex">
-                                <div class="latest-blog-post-thumb">
-                                    <img src="img/blog-img/lb-4.jpg" alt="">
-                                </div>
-                                <div class="latest-blog-post-content">
-                                    <h6><a href="#">Make a good investment in 2018</a></h6>
-                                    <div class="post-meta">
-                                        <h6>By <a href="#">Jane Smith</a>/<a href="#">Aug 25, 2016</a></h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <CENTER> <a href="#">View All</a></CENTER> 
-                        </div>
                         <div class="blog-post-archives mb-100">
                             <h5>Archives</h5>
                             <ul>
