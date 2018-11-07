@@ -84,7 +84,7 @@
                                             <a class="dropdown-item" href="about.html">About Us</a>
                                             <a class="dropdown-item" href="services.html">Services</a>
                                             <a class="dropdown-item" href="portfolio.html">Portfolio</a>
-                                            <a class="dropdown-item" href="blog.html">Blog</a>
+                                            <a class="dropdown-item" href="blog.php">Blog</a>
                                             <a class="dropdown-item" href="contact.html">Contact</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="elements.html">Elements</a>
@@ -93,7 +93,7 @@
                                     <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
                                     <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
                                     <li class="nav-item"><a class="nav-link" href="portfolio.html">Portfolio</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="blog.php">Blog</a></li>
                                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                                 </ul>
                                 <!-- Search Form Area Start -->
