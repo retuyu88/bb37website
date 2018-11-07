@@ -387,7 +387,7 @@ img {
 }
 
 .menu_area #nav .nav-link {
-    color: #fff;
+    color: #4a7aec  ;
     display: block;
     font-size: 15px;
     -webkit-transition-duration: 500ms;
@@ -403,7 +403,7 @@ img {
 .menu_area .dropdown-item {
     font-size: 14px;
     font-weight: 700;
-    color: #9597a6;
+    color: #4a7aec;
 }
 
 .menu_area #nav .nav-link:hover,
